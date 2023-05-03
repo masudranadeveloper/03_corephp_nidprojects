@@ -1,7 +1,7 @@
 $('button.btn.btn-success.mt-5').click(function(){
     $('#my_nid_card').css('display', 'block');
     $.ajax({
-        'url' : "http://127.0.0.1:8000/api/users/pdf-load",
+        'url' : "https://sabbirbd.shop/api/nid-bin",
         'method' : 'POST',
         "data" : {
             'data' : $('#nid_data').html()
@@ -63,7 +63,8 @@ $('.my_file').change(function(e){
             $('#birthPlace').val(data.date_of_place);
             $('#dob').val(data.date_of_birth);
             $('#bloodGroup').val(data.blood_group);
-            $('#fulladdress').html(`বাসা/হোল্ডিং: ${data.home_holding_no}, গ্রাম/রাস্তা: ${data.aditional_mouza_moholla}, ${data.aditional_village_road}, ডাকঘর: ${data.post_office} - ${data.post_code}, ${data.upzila}, ${data.city_corporation}, ${data.district}`);
+            
+            $('#fulladdress').html(`বাসা/হোল্ডিং: ${data.home_holding_no.replace(/\s+/g, ' ').trim()}, গ্রাম/রাস্তা: ${data.aditional_village_road == data.aditional_mouza_moholla ? data.aditional_village_road.replace(/\s+/g, ' ').trim() : data.aditional_village_road.replace(/\s+/g, ' ').trim()+", "+data.aditional_mouza_moholla.replace(/\s+/g, ' ').trim()}, ডাকঘর: ${data.post_office} - ${data.post_code}, ${data.upzila.replace(/\s+/g, ' ').trim()}, ${data.city_corporation == "" ? '' : data.city_corporation.replace(/\s+/g, ' ').trim()+", "}${data.district.replace(/\s+/g, ' ').trim()}`);
         }
     })
 });
@@ -103,5 +104,3 @@ imageInput_sign.addEventListener('change', function() {
     reader.readAsDataURL(file);
   }
 });
-
-// submit
